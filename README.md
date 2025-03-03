@@ -1,3 +1,10 @@
+sudo apt update
+
+sudo apt install --install-suggests gnome-software
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+
 # more-stabil-ubuntu
 The Snap package management system runs counter to the philosophy of free software.
 
