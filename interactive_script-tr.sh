@@ -172,3 +172,34 @@ else
 fi
 
 echo -e "${BLUE}Tüm bloklar tamamlandı.${NC}"
+echo ""
+
+# Ubuntu Pro Temizleme İşlemleri
+echo -e "${BLUE}------------------------------------------------------${NC}"
+echo -e "${BLUE}Bilgisayarınızda Ubuntu Pro kullanıyor musunuz?${NC}"
+echo -e "${GREEN}[1] Evet, Ubuntu Pro kullanıyorum.${NC}"
+echo -e "${GREEN}[2] Hayır, kullanmıyorum.${NC}"
+read -r -p "Seçiminiz (1/2): " ubuntu_pro_choice
+echo -e "${BLUE}------------------------------------------------------${NC}"
+echo ""
+
+if [[ "$ubuntu_pro_choice" == "1" ]]; then
+    run_block "Ubuntu Pro Temizleme" \
+    "sudo apt purge ubuntu-advantage-tools -y
+sudo rm -rf /var/lib/ubuntu-advantage/ubuntu_pro_esm_cache
+echo -e \"\${YELLOW}Lütfen /etc/apt/sources.list dosyasını açın ve 'esm' veya 'ubuntu-pro' içeren satırları manuel olarak kaldırın. İşlemi tamamladıktan sonra Enter'a basın.\"
+read -r -p \"Devam etmek için Enter'a basın...\" 
+sudo rm /etc/apt/sources.list.d/ubuntu-pro-*.list
+sudo apt update
+sudo apt autoremove --purge -y
+ls -l /var/lib/update-notifier
+sudo rm -r /var/lib/update-notifier
+sudo apt install --reinstall ubuntu-release-upgrader-core -y
+sudo apt purge ubuntu-release-upgrader-core -y
+sudo apt autoremove --purge -y" \
+    "Ubuntu Pro, gereksizdir ve diğer paketlerle uyumsuzluk yaratabilir. Özellikle 'ubuntu-advantage-tools' ve ilgili cache dosyaları sistemde sorunlara neden olabilmektedir. Bu adımlarla Ubuntu Pro ile ilgili araçlar ve ek dosyalar temizlenir."
+else
+    echo -e "${GREEN}Ubuntu Pro temizleme işlemi atlandı.${NC}"
+fi
+
+echo -e "${BLUE}Script tamamlandı. Sisteminiz güncellendi ve tercihleriniz uygulanmıştır.${NC}"
