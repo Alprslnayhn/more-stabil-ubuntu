@@ -124,6 +124,23 @@ sudo prime-select intel
 * `powertop` – real-time power consumption analysis
 * `watch -n 1 cat /proc/acpi/battery/BAT0/state` – battery drain observation
 
+## Troubleshooting
+
+### Conflict with power-profiles-daemon
+
+If you encounter a conflict with the `power-profiles-daemon`, you can mask it to ensure TLP runs without interference:
+
+```bash
+sudo systemctl mask power-profiles-daemon.service
+sudo systemctl enable --now tlp.service
+```
+
+### Configuration File Not Loading
+
+If your custom settings in `/etc/tlp.conf` are not being applied, check for additional snippet files under `/etc/tlp.d/`. Any overrides or conflicting snippets in that directory can prevent your main configuration from loading.
+
+---
+
 ## Contributing
 
 Feel free to fork the repo, suggest improvements, or open issues if you encounter problems or have optimization tips for specific hardware setups.
